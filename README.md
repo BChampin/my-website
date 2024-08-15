@@ -1,8 +1,8 @@
 # champin.dev
-## v0.5
+## v0.6
 
 Run the website with `docker compose up`, access it on [http://localhost:10000](http://localhost:10000).
 
-**Status :** not working :cross_mark:
+**Status :** partially working :warning:
 
-:warning: Lots of files went missing, so not working version here.
+:warning: Main and Shop websites working, the others are discontinued or needing a database.

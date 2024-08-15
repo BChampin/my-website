@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <link type="text/css" rel="stylesheet" media="screen,projection" href="Site/css.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="shortcut icon" type="image/x-icon" href="Site/My_Logo.png" />
+  <title>Bastien Champin</title>
+</head>
+<body>
+  <div id="t"></div>
+  <div id="p"></div>
+  <script type="text/javascript" src="Site/js.js"></script>
+</body>
+</html>
