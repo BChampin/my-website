@@ -1,37 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
+<?php include('includes/head.php'); ?>
 
-	<?php include('includes/head.php'); ?>
-	<!-- Titre  -->
-	<title>Connection au Portfolio</title>
-
-</head>
-<body>
-	<?php include('includes/nav.php'); ?>
-
-	<!-- ##################################################################### -->
-	<!-- ################ Formulaire html pour rentrer logins ################ -->
-	<div class="row center">
-		<form action="Portfolio.php" method="post" class="col s4 offset-s4">
-			<fieldset>
-				<legend>Se connecter</legend>
-				<label for="NomUtilisateur" class="blue-text text-darken-4">Nom d'utilisateur</label> : <input type="text" name="NomUtilisateur" id="NomUtilisateur" autofocus/><br />
-				<label for="MotDePasse" class="blue-text text-darken-4">Mot de passe</label> :  <input type="password" name="MotDePasse" id="MotDePasse" /><br />
-				<br />
-				<input type="submit" value="Connection" />
-			</fieldset>
-		</form>
+<div class="container valign-wrapper">
+	<div class="row center valign-wrapper">
+		<form action="Portfolio.php" method="post" class="col s12">
+			<fieldset>
+				<legend>Se connecter</legend>
+				<label for="NomUtilisateur" class="white-text">Nom d'utilisateur</label> : <input class="white-text" type="text" name="NomUtilisateur" id="NomUtilisateur" autofocus/><br />
+				<label for="MotDePasse" class="white-text">Mot de passe</label> :  <input class="white-text" type="password" name="MotDePasse" id="MotDePasse" /><br />
+				<br />
+				<button class="btn waves-effect waves-light grey darken-1" type="submit" name="action" value="Connection">Submit
+					<i class="material-icons right">send</i>
+				</button>
+			</fieldset>
+		</form>
 	</div>
+</div>
 
-</br></br></br></br>
 
 <?php include('includes/footer.php'); ?>
-
-<!-- Scripts -->
-<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="js/materialize.js"></script>
-<script src="js/init.js"></script>
-
-</body>
-</html>

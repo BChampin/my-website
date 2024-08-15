@@ -1,42 +1,66 @@
-/* Custom Stylesheet */
-/**
- * Use this file to override Materialize files so you can update
- * the core Materialize files in the future
- *
- * Made By MaterializeCSS.com
- */
-
- .icon-block {
- 	padding: 0 15px;
- }
- .icon-block .material-icons {
- 	font-size: inherit;
- }
-
- body {
- 	background-color: rgb(167, 177, 186);
- }
-
- .logo{
- 	width: 40px;
- 	height: 40px;
- 	margin-bottom: 0px;
- 	margin-right: 5px;
- 	margin-top: 15px;
- }
+/* Custom Stylesheet */
+/**
+* Use this file to override Materialize files so you can update
+* the core Materialize files in the future
+*
+* Made By MaterializeCSS.com
+*/
 
-/*Sticky footer*/
- body {
-   display: flex;
-   min-height: 100vh;
-   flex-direction: column;
- }
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
 
- main {
-   flex: 1 0 auto;
- }
+body {
+  background-color: black;
+  color: white;
+}
 
-p{
-  text-align: justify;;
-  text-indent: 15px;
+p {
+  text-align: center;
+  padding-left:  20px;
+  padding-right:  20px;
+  padding-top:  20px;
+  padding-bottom:  20px;
+  border-bottom: 1px solid #FFFFFF;
+  border-top: 1px solid #FFFFFF;
+  border-left: 1px solid #FFFFFF;
+  border-right: 1px solid #FFFFFF;
+}
+
+.my_logo {
+  height : 50px;
+  width: auto;
+}
+
+#icone_menu {
+  padding-right: 20px;
+}
+
+#pop_mail #pop_clavier #pop_social #pop_autre{
+  background-color: white;
+  visibility: hidden;
+}
+
+.logo{
+ width: 40px;
+ height: 40px;
+ margin-bottom: 0px;
+ margin-right: 5px;
+ margin-top: 15px;
+}
+
+li{
+  margin-left: 15px;
+}
+
+#google_translate_element{
+  margin-top: 15px;
+  line-height: 10px;
+}
+
+#div_portfolio{
+  text-align: left;
 }
