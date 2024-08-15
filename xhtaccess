@@ -1,0 +1,6 @@
+<Files .htaccess|.ini>
+order allow,deny
+deny from all
+</Files>
+RewriteEngine on
+Rewriterule ^([a-zA-Z0-9]*)\/([a-zA-Z0-9]*)\/([a-zA-Z0-9-]*)$ ./index.php?c=$1&m=$2&p=$3 [L]
