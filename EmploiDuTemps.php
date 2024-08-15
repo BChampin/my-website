@@ -1,7 +1,6 @@
 <?php
 include('config/env.php');
-
-  if (!(isset($page)))
+if (!(isset($page)))
   {
     $page=0;
   }

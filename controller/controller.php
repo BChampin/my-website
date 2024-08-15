@@ -10,12 +10,22 @@ function Homepage()
   require(template.'footer.php');
 }
 
-function Portfolio()
+function Projects()
 {
   require(template.'header.php');
   require(js.'ajax.js');
   require(template.'open_general_div.php');
-  require(view.'Portfolio.php');
+  require(view.'Projects.php');
+  require(template.'close_general_div.php');
+  require(template.'footer.php');
+}
+
+function Skills()
+{
+  require(template.'header.php');
+  require(js.'ajax.js');
+  require(template.'open_general_div.php');
+  require(view.'Skills.php');
   require(template.'close_general_div.php');
   require(template.'footer.php');
 }
@@ -40,14 +50,39 @@ function Legals()
   require(template.'footer.php');
 }
 
+function Bookmarks()
+{
+  require(template.'header.php');
+  require(js.'ajax.js');
+  require(template.'open_general_div.php');
+  require(view.'Bookmarks.php');
+  require(template.'close_general_div.php');
+  require(template.'footer.php');
+}
+
+function Video()
+{
+  require(template.'header.php');
+  require(js.'ajax.js');
+  require(template.'open_general_div.php');
+  require(view.'Video.php');
+  require(template.'close_general_div.php');
+  require(template.'footer.php');
+}
+
 function ajax_Homepage()
 {
   require(view.'Homepage.php');
 }
 
-function ajax_Portfolio()
+function ajax_Projects()
 {
-  require(view.'Portfolio.php');
+  require(view.'Projects.php');
+}
+
+function ajax_Skills()
+{
+  require(view.'Skills.php');
 }
 
 function ajax_Contact()
