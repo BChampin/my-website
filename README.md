@@ -1,5 +1,5 @@
 # champin.dev
-## v0.3
+## v0.4
 
 Run the website with `docker compose up`, access it on [http://localhost:10000](http://localhost:10000).
 

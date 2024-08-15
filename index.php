@@ -4,31 +4,23 @@ session_start();
 error_reporting(0);
 
 require('config/config.php');
-require(config.'classLoader.php');
-require(config.'BDD.php');
+require(controller.'controller.php');
 
-
-//Setup routing
-$controller = (isset($_GET['c'])) ? $_GET['c'] : false;
-$method = (isset($_GET['m'])) ? $_GET['m'] : false;
-$parameter = (isset($_GET['p'])) ? $_GET['p'] : false;
-
-
-if($controller !== false AND is_file(controller.$controller.'.php'))
+if(isset($_GET['p']))
 {
-  $constr = ucfirst(strtolower($controller));
-  $OBcontroler = new $constr();
-  if($methode !== false AND method_exists($OBcontroler,$method))
-  {
-    $OBcontroler->$method($param);
-  }
-  else
-  {
-    $OBcontroler->index($parameter);
-  }
+  $page = $_GET['p'];
+  if($page == 'Homepage'){Homepage();}
+  if($page == 'Portfolio'){Portfolio();}
+  if($page == 'Contact'){Contact();}
+  if($page == 'Legals'){Legals();}
+  if($page == 'ajax_Homepage'){ajax_Homepage();}
+  if($page == 'ajax_Portfolio'){ajax_Portfolio();}
+  if($page == 'ajax_Contact'){ajax_Contact();}
+  if($page == 'ajax_Legals'){ajax_Legals();}
+  if($page == 'envoi_mail'){envoi_mail();}
+  if($page == 'Error'){Error();}
+
 }
-else
-{
-  $OBcontroler = new $DefaultController();
-  $OBcontroler->$DefaultMethod($parameter);
+else {
+  Portfolio();
 }
