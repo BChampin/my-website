@@ -1,7 +1,0 @@
-services:
-  web:
-    image: php:7.4.3-apache
-    ports:
-      - "10000:80"
-    volumes:
-      - ./:/var/www/html
