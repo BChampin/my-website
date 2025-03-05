@@ -1,0 +1,12 @@
+services:
+  website-v2-php:
+    image: php:7.4.3-apache
+    container_name: website-v2-php
+    restart: unless-stopped
+    # Only expose port if direct access is needed
+    # ports:
+    #   - 10002:80
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - my-website-network

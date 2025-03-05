@@ -1,0 +1,15 @@
+services:
+  website-nginx:
+    image: nginx:latest
+    container_name: website-nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.template:/etc/nginx/nginx.template
+      - ../v7-html:/var/www/v7:ro  # Mount the v7 static site
+    env_file:
+      - ../.env
+    entrypoint: ["/bin/sh", "-c", "envsubst '$$DOMAIN_ROOT' < /etc/nginx/nginx.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"]
+    networks:
+      - my-website-network
