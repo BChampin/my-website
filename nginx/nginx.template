@@ -1,0 +1,95 @@
+events {}
+
+http {
+  # Current version (static)
+  server {
+    listen 80;
+    server_name $DOMAIN_ROOT;
+    location / {
+      root /var/www/portfolio/current;
+      index index.html;
+    }
+  }
+
+  # v1 - php
+  server {
+    listen 80;
+    server_name v1.$DOMAIN_ROOT;
+    location / {
+      proxy_pass http://website-v1-php:80;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+  }
+
+  # v2 - php
+  server {
+    listen 80;
+    server_name v2.$DOMAIN_ROOT;
+    location / {
+      proxy_pass http://website-v2-php:80;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+  }
+
+  # v3 - php
+  server {
+    listen 80;
+    server_name v3.$DOMAIN_ROOT;
+    location / {
+      proxy_pass http://website-v3-php-mvc:80;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+  }
+
+  # v4 - php
+  server {
+    listen 80;
+    server_name v4.$DOMAIN_ROOT;
+    location / {
+      proxy_pass http://website-v4-php-mvc:80;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+  }
+
+  # v5 - php
+  server {
+    listen 80;
+    server_name v5.$DOMAIN_ROOT;
+    location / {
+      proxy_pass http://website-v5-php:80;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+  }
+
+  # v6 - php
+  server {
+    listen 80;
+    server_name v6.$DOMAIN_ROOT;
+    location / {
+      proxy_pass http://website-v6-php-terminal:80;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+  }
+
+  # v7 - static
+  server {
+    listen 80;
+    server_name v7.$DOMAIN_ROOT;
+    location / {
+      root /var/www/v7;
+      index index.html;
+    }
+  }
+}

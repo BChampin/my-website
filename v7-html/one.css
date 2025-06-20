@@ -1,0 +1,219 @@
+/* root */
+:root {
+  --primary: #00A9FF;
+  --primary-rgb: 0, 169, 255;
+  --grey1: #CCCCCC;
+  --grey2: #EEEEEE;
+  --black: #111111;
+
+  --xs: 4px;
+  --sm: 8px;
+  --md: 16px;
+  --lg: 24px;
+  /* --xl: 48px; */
+}
+
+/* fonts */
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: local(''),
+    url('./Ubuntu-Regular.ttf') format('truetype')
+}
+
+/* general */
+html {
+  color-scheme: dark;
+}
+
+body {
+  font-family: Ubuntu;
+  background-color: var(--black);
+  color: var(--grey1);
+  margin-top: 0px;
+}
+
+
+/* styling */
+.fit {
+  width: 100%;
+  height: 100%;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-start {
+  align-items: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+
+/* nav */
+.nav {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  padding: var(--sm);
+  display: flex;
+  justify-content: space-between;
+  z-index: 2;
+  background-color: var(--black);
+  border-bottom: 1px solid var(--primary);
+}
+
+/* spacing */
+.gutter-x-sm > *:not(:last-child) {
+  display: block;
+  margin-right: var(--sm);
+}
+
+.gutter-y-sm > *:not(:last-child) {
+  display: block;
+  margin-bottom: var(--sm);
+}
+
+.ml-md {
+  margin-left: var(--md);
+}
+.mr-sm {
+  margin-right: var(--sm);
+}
+
+.mx-sm {
+  margin-left: var(--sm);
+  margin-right: var(--sm);
+}
+
+.mt-xs {
+  margin-top: var(--xs);
+}
+
+.px-lg {
+  padding-left: var(--lg);
+  padding-right: var(--lg);
+}
+
+
+dd .project {
+  padding-bottom: 10px;
+}
+
+dd .project:not(:last-child) {
+  border-bottom: 1px solid var(--grey2);
+  margin-bottom: var(--lg);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col-6 {
+  width: 50%;
+}
+
+
+/* Imported from Fabian Schultz */
+.grow {
+  flex-grow: 1
+}
+.flex {
+  display: flex
+}
+.justify-center {
+  justify-content: center;
+}
+.w-full {
+  width: 100%
+}
+.max-w-main {
+  max-width: 46rem
+}
+p {
+  line-height: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.icon {
+  width: 18px;
+  height: 18px;
+}
+.link {
+  transition: all .8s ease;
+  -webkit-transition: all .8s ease;
+  color: var(--grey1);
+  text-decoration-line: underline !important;
+  text-decoration-thickness: 1.5px !important;
+  text-underline-offset: 2.5px !important;
+  text-decoration-color: var(--grey2) !important
+}
+.link:hover {
+  color: var(--primary);
+  text-decoration-color: var(--primary) !important
+}
+.link img {
+  transition: all .8s ease;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  top: 5px;
+  margin-right: var(--xs);
+  filter: brightness(0) invert(1);
+}
+
+.link:hover img {
+  transition: all .4s ease;
+  filter: none;
+}
+
+.list-container {
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: repeat(12,minmax(0,1fr));
+  gap: 2rem;
+  row-gap: .5rem;
+}
+
+.list-container:not(:last-child) {
+  border-bottom: 1px solid var(--primary);
+}
+
+.list-container:last-of-type {
+  margin-bottom: 0
+}
+
+.list-title {
+  grid-column: span 12/span 12;
+}
+.list-content {
+  grid-column: span 12/span 12;
+}
+
+@media (min-width: 640px) {
+  .list-container {
+    margin-bottom: 2rem;
+    row-gap: 1rem
+  }
+  .list-title {
+    grid-column:span 4/span 4
+  }
+  .list-content {
+    grid-column:span 8/span 8;
+  }
+}
+
+
+/* End of Imported from Fabian Schultz */

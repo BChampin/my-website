@@ -1,0 +1,3 @@
+networks:
+  my-website-network:
+    driver: bridge

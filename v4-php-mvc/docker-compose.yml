@@ -1,0 +1,12 @@
+services:
+  website-v4-php-mvc:
+    image: php:7.4.3-apache
+    container_name: website-v4-php-mvc
+    restart: unless-stopped
+    # Only expose port if direct access is needed
+    # ports:
+    #   - 10004:80
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - my-website-network
