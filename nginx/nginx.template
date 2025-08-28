@@ -1,12 +1,14 @@
 events {}
 
 http {
-  # Current version (static)
+  include /etc/nginx/mime.types;
+
+  # Live version (static)
   server {
     listen 80;
     server_name $DOMAIN_ROOT;
     location / {
-      root /var/www/portfolio/current;
+      root /var/www/live;
       index index.html;
     }
   }

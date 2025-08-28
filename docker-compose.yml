@@ -1,10 +1,13 @@
+networks:
+  my-website-network:
+
 include:
-  - path: 'docker-compose.networks.yml'
   - path: 'nginx/docker-compose.yml'
-  - path: 'v1-php/docker-compose.yml'
-  - path: 'v2-php/docker-compose.yml'
-  - path: 'v3-php-mvc/docker-compose.yml'
-  - path: 'v4-php-mvc/docker-compose.yml'
-  - path: 'v5-php/docker-compose.yml'
-  - path: 'v6-php-terminal/docker-compose.yml'
+  # live is static, so defined in nginx directly
+  - path: '_archive/v1-php/docker-compose.yml'
+  - path: '_archive/v2-php/docker-compose.yml'
+  - path: '_archive/v3-php-mvc/docker-compose.yml'
+  - path: '_archive/v4-php-mvc/docker-compose.yml'
+  - path: '_archive/v5-php/docker-compose.yml'
+  - path: '_archive/v6-php-terminal/docker-compose.yml'
   # v7-html is static, so defined in nginx directly
