@@ -1,5 +1,5 @@
-import { ref } from "vue";
 import type { Translatable } from "../types";
+import { useLangCycle } from "./useLangCycle";
 
 function getByPath(obj: unknown, path: string): unknown {
   if (!path) return undefined;
@@ -31,12 +31,7 @@ export function useLocalization<T extends object>(
   options: { langs?: string[]; defaultLang?: string } = {},
 ) {
   const langs = options.langs ?? ["en", "fr"];
-  const lang = ref(options.defaultLang ?? langs[0]);
-
-  function switchLang() {
-    const idx = langs.indexOf(lang.value);
-    lang.value = langs[(idx + 1) % langs.length];
-  }
+  const { lang, switchLang } = useLangCycle(langs, options.defaultLang);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function t(path: string, source?: object): any {

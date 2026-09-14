@@ -3,8 +3,8 @@
     <li v-for="(item, i) of items" :key="i" class="relative border-l-2 border-theme-5 pl-4">
       <span class="absolute top-1.5 -left-[7px] h-3 w-3 rounded-full bg-theme-6" />
       <div class="flex flex-wrap items-center gap-x-2 text-sm text-theme-4">
-        <span>⏱ {{ t("dates", item) }}</span>
-        <span>📍 {{ t("location", item) }}</span>
+        <span>⏱ {{ item.dates }}</span>
+        <span>📍 {{ item.location }}</span>
       </div>
       <div class="flex flex-wrap items-center gap-x-2">
         <span class="text-lg font-semibold">{{ t("title", item) }}</span>

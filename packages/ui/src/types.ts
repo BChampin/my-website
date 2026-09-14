@@ -1,6 +1,4 @@
 export interface Translatable {
-  en?: string;
-  fr?: string;
   [lang: string]: string | undefined;
 }
 

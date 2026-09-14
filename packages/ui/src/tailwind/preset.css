@@ -27,3 +27,12 @@
   --color-theme-7: var(--theme-7);
   --color-theme-8: var(--theme-8);
 }
+
+/* Shared "surface" chrome (rounded panel, border, surface background) behind
+   Card, LangSwitch and ThemeToggle — one place to keep those in sync. */
+.ui-surface {
+  border-radius: 25px;
+  border-width: 2px;
+  border-color: var(--theme-5);
+  background-color: var(--theme-2);
+}
