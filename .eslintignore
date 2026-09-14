@@ -1,0 +1,8 @@
+# Legacy content, not part of the new trunk workspace (see PLAN.md)
+_archive/
+_live/
+extension/
+current/
+nginx/
+docker-compose.yml
+README.md

@@ -1,1 +1,9 @@
 .gitignored
+
+# Trunk workspace (apps/, packages/)
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vite-plus/
+.vp-cache/

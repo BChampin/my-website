@@ -1,0 +1,21 @@
+{
+  "name": "my-website",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Common trunk for champin.dev and its sub-sites (apps/*), sharing a Vue + Tailwind component layer (packages/ui)",
+  "type": "module",
+  "scripts": {
+    "dev": "vp run dev",
+    "build": "vp run build",
+    "check": "vp check",
+    "lint": "vp lint",
+    "fmt": "vp fmt"
+  },
+  "devDependencies": {
+    "vite-plus": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "pnpm@10.30.3"
+}

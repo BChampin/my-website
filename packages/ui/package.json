@@ -1,0 +1,18 @@
+{
+  "name": "@my-website/ui",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Shared Vue components, composables and Tailwind preset for every app in apps/",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tailwind/preset.css": "./src/tailwind/preset.css"
+  },
+  "devDependencies": {
+    "vite-plus": "catalog:",
+    "vue": "catalog:"
+  },
+  "peerDependencies": {
+    "vue": "catalog:"
+  }
+}

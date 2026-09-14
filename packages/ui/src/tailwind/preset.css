@@ -1,0 +1,19 @@
+/**
+ * Shared design-token contract for every app in apps/.
+ *
+ * This only maps a fixed set of CSS custom properties into Tailwind's
+ * `@theme` color namespace — it never defines actual color values. Each app
+ * supplies those values (light + `[data-theme='dark']` overrides) in its own
+ * `src/theme.css`. See packages/ui/README.md for the full import order.
+ */
+
+@theme {
+  --color-theme-1: var(--theme-1);
+  --color-theme-2: var(--theme-2);
+  --color-theme-3: var(--theme-3);
+  --color-theme-4: var(--theme-4);
+  --color-theme-5: var(--theme-5);
+  --color-theme-6: var(--theme-6);
+  --color-theme-7: var(--theme-7);
+  --color-theme-8: var(--theme-8);
+}
