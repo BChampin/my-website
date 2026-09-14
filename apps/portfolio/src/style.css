@@ -1,0 +1,32 @@
+@import "tailwindcss";
+@import "./theme.css";
+@import "@my-website/ui/tailwind/preset.css";
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src:
+    url("/fonts/Ubuntu-Regular.woff2") format("woff2"),
+    url("/fonts/Ubuntu-Regular.woff") format("woff"),
+    url("/fonts/Ubuntu-Regular.ttf") format("truetype");
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  background-color: var(--theme-1);
+  color: var(--theme-3);
+}
+
+.link {
+  color: var(--theme-4);
+  cursor: pointer;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 2.5px;
+  transition: color 0.3s ease;
+}
+.link:hover {
+  color: var(--theme-6);
+}

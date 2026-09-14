@@ -1,0 +1,22 @@
+/* Portfolio palette — see packages/ui/README.md for what each slot means. */
+:root {
+  --theme-1: #ffffff;
+  --theme-2: #ffffff;
+  --theme-3: #1a1a1a;
+  --theme-4: #222222;
+  --theme-5: #d1d1d1;
+  --theme-6: #00a9ff;
+  --theme-7: #ffffff;
+  --theme-8: #f2f5f5;
+}
+
+[data-theme="dark"] {
+  --theme-1: #121212;
+  --theme-2: #121212;
+  --theme-3: #f2f5f5;
+  --theme-4: #f2f5f5;
+  --theme-5: #333333;
+  --theme-6: #00a9ff;
+  --theme-7: #ffffff;
+  --theme-8: #1e1e1e;
+}

@@ -15,7 +15,20 @@ live site untouched until then. Go-ahead is required between phases below.
       `_live/`, `current/`, `extension/`, `nginx/`, `docker-compose.yml`,
       root `README.md`) intentionally excluded from the new tooling via
       `.prettierignore`/`.eslintignore` and left untouched.
-- [ ] Phase 2 — Rewrite portfolio
+- [x] **Phase 2 — Rewrite portfolio.** `apps/portfolio` is a plain Vue 3 +
+      Tailwind v4 rewrite of `current/`, dropping Quasar entirely (native
+      `<dialog>` for the project gallery instead of `q-dialog`,
+      `navigator.clipboard` instead of Quasar's `copyToClipboard`, no
+      vue-router — it's a genuine single page). `data.ts` content carried
+      over unchanged. Extracted into `packages/ui`: `useDarkMode`,
+      `useLocalization`, and `Card`/`ThemeToggle`/`LangSwitch`/`Timeline`/
+      `InfiniteCarousel` components, plus the semantic `--theme-1..8` slot
+      contract (documented in `packages/ui/README.md`). Verified with
+      `vp check`, `vp build`, and a headless-Chromium pass (light/dark/mobile
+      screenshots, tab switching, the project dialog, lang switch, dark
+      toggle — zero console errors). `current/` is left in place until this
+      is confirmed fully stable; the `_archive/` PHP versions stay dropped
+      from the new trunk per phase 1.
 - [ ] Phase 3 — Rewrite pvm-rpg
 - [ ] Phase 4 — Rewrite rpg-tp
 - [ ] Phase 5 — Wire the unified GitHub Pages deploy
@@ -173,6 +186,27 @@ Go-ahead required between each phase.
 - `vp env pin` was run once to pin Node `24.21.0` for this project
   (`.node-version`, committed) — the system Node here is v20, which doesn't
   satisfy `vite-plus`'s `engines.node: >=22.12.0`.
+- **Tailwind v4's automatic content detection skips everything under
+  `node_modules`**, including a pnpm-workspace symlink like
+  `node_modules/@my-website/ui -> packages/ui` — so a class used only inside
+  `packages/ui`'s own `.vue` files silently never made it into an app's
+  compiled CSS (no error, the class is just absent). Fixed once, centrally,
+  with `@source '../';` in `packages/ui/src/tailwind/preset.css` — every app
+  that imports the preset inherits the fix. If a new shared component's
+  styling silently doesn't apply, check the compiled CSS for the missing
+  class before assuming it's a logic bug.
+- **`Card`'s children need `w-full` explicitly** — a `Card` inside a
+  `flex-direction: column` container with `align-items: center` (both
+  `.bento-left`/`.bento-right` use this) does not stretch to the column's
+  width by default, so any child with wide unwrapped content (e.g.
+  `InfiniteCarousel`'s un-wrapped track) balloons the card to its content's
+  max-content width and overflows on top of neighboring blocks. `Card` now
+  carries `w-full min-w-0` for this reason — don't remove it.
+- No `claude-in-chrome`-style browser tool was available in this session
+  despite being listed; visual verification instead used a headless
+  Chromium installed via `npx playwright install chromium` (no `--with-deps`,
+  since there's no sudo) plus a small ad-hoc script — reused across later
+  phases for the same purpose.
 
 ## Verification
 

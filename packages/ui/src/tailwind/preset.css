@@ -4,8 +4,18 @@
  * This only maps a fixed set of CSS custom properties into Tailwind's
  * `@theme` color namespace — it never defines actual color values. Each app
  * supplies those values (light + `[data-theme='dark']` overrides) in its own
- * `src/theme.css`. See packages/ui/README.md for the full import order.
+ * `src/theme.css`. See packages/ui/README.md for the full import order and
+ * the meaning of each slot.
+ *
+ * Tailwind v4's automatic content detection skips everything under
+ * node_modules, including a pnpm-workspace symlink like
+ * node_modules/@my-website/ui -> packages/ui — so classes used only in this
+ * package's own .vue files would otherwise never make it into an app's
+ * compiled CSS. This `@source` re-registers this package as a scan root for
+ * every app that imports this preset.
  */
+
+@source '../';
 
 @theme {
   --color-theme-1: var(--theme-1);
