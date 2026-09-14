@@ -1,36 +1,20 @@
 <template>
   <div class="grid grid-cols-3 gap-2 sm:grid-cols-6">
     <a
-      :href="portfolioData.links.malt.href"
+      v-for="key in ['malt', 'github', 'gitlab'] as const"
+      :key="key"
+      :href="portfolioData.links[key].href"
       target="_blank"
       rel="noopener"
-      :title="portfolioData.links.malt.label"
+      :title="portfolioData.links[key].label"
       class="aspect-square"
     >
       <Card class="flex h-full w-full items-center justify-center !p-2">
-        <img src="/logos/malt.svg" alt="Logo Malt" class="h-10" />
-      </Card>
-    </a>
-    <a
-      :href="portfolioData.links.github.href"
-      target="_blank"
-      rel="noopener"
-      :title="portfolioData.links.github.label"
-      class="aspect-square"
-    >
-      <Card class="flex h-full w-full items-center justify-center !p-2">
-        <img src="/logos/github.svg" alt="Logo Github" class="h-10" />
-      </Card>
-    </a>
-    <a
-      :href="portfolioData.links.gitlab.href"
-      target="_blank"
-      rel="noopener"
-      :title="portfolioData.links.gitlab.label"
-      class="aspect-square"
-    >
-      <Card class="flex h-full w-full items-center justify-center !p-2">
-        <img src="/logos/gitlab.svg" alt="Logo Gitlab" class="h-10" />
+        <img
+          :src="`/logos/${key}.svg`"
+          :alt="`Logo ${portfolioData.links[key].label}`"
+          class="h-10"
+        />
       </Card>
     </a>
     <div class="aspect-square" :title="t('lang.switch')">

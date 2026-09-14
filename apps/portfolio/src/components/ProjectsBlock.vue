@@ -38,7 +38,7 @@
               rel="noopener"
               class="rounded-[25px] border-2 border-theme-5 px-3 py-1 text-sm whitespace-nowrap hover:bg-theme-8"
             >
-              Check it out !
+              {{ t("projectSection.cta") }}
             </a>
             <button
               type="button"

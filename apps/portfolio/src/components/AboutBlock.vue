@@ -4,26 +4,19 @@
       <div class="text-lg font-semibold text-theme-6">{{ t("about.title") }}</div>
       <div class="flex gap-1 rounded-[25px] border-2 border-theme-5 p-1 text-sm">
         <button
+          v-for="id in ['experiences', 'studies'] as const"
+          :key="id"
           type="button"
           class="rounded-[20px] px-3 py-1 transition-colors"
-          :class="tab === 'experiences' ? 'bg-theme-6 text-theme-7' : 'hover:bg-theme-8'"
-          @click="tab = 'experiences'"
+          :class="tab === id ? 'bg-theme-6 text-theme-7' : 'hover:bg-theme-8'"
+          @click="tab = id"
         >
-          {{ t("about.experiences") }}
-        </button>
-        <button
-          type="button"
-          class="rounded-[20px] px-3 py-1 transition-colors"
-          :class="tab === 'studies' ? 'bg-theme-6 text-theme-7' : 'hover:bg-theme-8'"
-          @click="tab = 'studies'"
-        >
-          {{ t("about.studies") }}
+          {{ t(`about.${id}`) }}
         </button>
       </div>
     </div>
     <div class="mt-4 overflow-y-auto">
-      <Timeline v-if="tab === 'experiences'" :items="portfolioData.experiences" :t="t" />
-      <Timeline v-else :items="portfolioData.studies" :t="t" />
+      <Timeline :items="portfolioData[tab]" :t="t" />
     </div>
   </Card>
 </template>

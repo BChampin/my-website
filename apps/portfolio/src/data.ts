@@ -46,6 +46,10 @@ export const portfolioData = {
       en: "Dates",
       fr: "Dates",
     },
+    cta: {
+      en: "Check it out !",
+      fr: "Voir le site",
+    },
   },
   projects: {
     main: [
