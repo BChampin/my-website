@@ -56,11 +56,14 @@ export const useSheetStore = defineStore("sheet", () => {
     loading.value.timeRecords = true;
 
     const fetchPromises = SHEET_NAMES.map((sheetName) => fetchSheetData(sheetName));
+    // Kicked off alongside the other sheets so it fetches in parallel; only
+    // awaited later, right where mapPlayersAndTimes needs it.
+    const fameJsonPromise = fetchSheetData("Wall of Fame");
     try {
       // Array of data for each sheet
       sheetData.value = await Promise.all(fetchPromises);
       await mapMaps();
-      await mapPlayersAndTimes();
+      await mapPlayersAndTimes(fameJsonPromise);
       return true;
     } catch (error) {
       console.error("Error fetching all sheets data:", error);
@@ -92,72 +95,69 @@ export const useSheetStore = defineStore("sheet", () => {
       )
         throw new Error("No data found");
 
-      const mapsPromises: Promise<Map>[] = alienJson.table.rows[2].c
-        .map((cell: SheetCell, cellIndex: number) => {
+      maps.value = alienJson.table.rows[2].c
+        .map((cell: SheetCell, cellIndex: number): Map | undefined => {
           if (cellIndex <= 1 || !cell || !cell.v) return undefined;
-          return new Promise<Map>((resolve) => {
-            let mapGrade;
-            for (let gradeIndex = cellIndex; gradeIndex >= 2; gradeIndex--) {
-              const grade = alienJson.table.rows[1]?.c[gradeIndex]?.v;
-              if (grade) {
-                mapGrade = getMapGrade(grade);
-                break;
-              }
+          let mapGrade;
+          for (let gradeIndex = cellIndex; gradeIndex >= 2; gradeIndex--) {
+            const grade = alienJson.table.rows[1]?.c[gradeIndex]?.v;
+            if (grade) {
+              mapGrade = getMapGrade(grade);
+              break;
+            }
+          }
+
+          // Building exchange object
+          const exchange: Exchange = {};
+          let link = alienJson.table.rows[7]?.c[cellIndex]?.v ?? undefined;
+          if (link) {
+            // Special not properly formatted links
+            if (link === "https://trackmania.exchange/tracks/view/205627/rpg-inside") {
+              link = "https://trackmania.exchange/maps/205627/rpg-inside";
+            } else if (link === "https://trackmania.exchange/tracks/view/117963") {
+              link = "https://trackmania.exchange/maps/117963/rpg-quandary-islands";
             }
 
-            // Building exchange object
-            const exchange: Exchange = {};
-            let link = alienJson.table.rows[7]?.c[cellIndex]?.v ?? undefined;
-            if (link) {
-              // Special not properly formatted links
-              if (link === "https://trackmania.exchange/tracks/view/205627/rpg-inside") {
-                link = "https://trackmania.exchange/maps/205627/rpg-inside";
-              } else if (link === "https://trackmania.exchange/tracks/view/117963") {
-                link = "https://trackmania.exchange/maps/117963/rpg-quandary-islands";
-              }
-
-              exchange.link = link;
-              const match = link.match(new RegExp(/\/maps\/(\d+)\//));
-              if (match && match[1]) {
-                const id = Number(match[1]);
-                exchange.id = id;
-                exchange.thumbnail = `https://trackmania.exchange/mapimage/${id}`;
-              }
+            exchange.link = link;
+            const match = link.match(new RegExp(/\/maps\/(\d+)\//));
+            if (match && match[1]) {
+              const id = Number(match[1]);
+              exchange.id = id;
+              exchange.thumbnail = `https://trackmania.exchange/mapimage/${id}`;
             }
-            resolve({
-              label: cell.v,
-              grade: mapGrade ?? getMapGrade("E"),
-              times: {
-                noway: alienJson.table.rows[6]?.c[cellIndex]?.v
-                  ? timeStrToNumber(alienJson.table.rows[6]?.c[cellIndex].v)
-                  : 9999999,
-                wr: alienJson.table.rows[5]?.c[cellIndex]?.v
-                  ? timeStrToNumber(alienJson.table.rows[5]?.c[cellIndex].v)
-                  : 9999999,
-                alien: alienJson.table.rows[4]?.c[cellIndex]?.v
-                  ? timeStrToNumber(alienJson.table.rows[4]?.c[cellIndex].v)
-                  : 9999999,
-                player: alienJson.table.rows[3]?.c[cellIndex]?.v
-                  ? timeStrToNumber(alienJson.table.rows[3].c[cellIndex].v)
-                  : 9999999,
-                challenger: noviceJson.table.rows[5]?.c[cellIndex]?.v
-                  ? timeStrToNumber(noviceJson.table.rows[5]?.c[cellIndex].v)
-                  : 9999999,
-                intermediate: noviceJson.table.rows[4]?.c[cellIndex]?.v
-                  ? timeStrToNumber(noviceJson.table.rows[4]?.c[cellIndex].v)
-                  : 9999999,
-                noob: noviceJson.table.rows[3]?.c[cellIndex]?.v
-                  ? timeStrToNumber(noviceJson.table.rows[3]?.c[cellIndex].v)
-                  : 9999999,
-              },
-              exchange,
-              tag: alienJson.table.rows[0]?.c[cellIndex]?.v ?? undefined,
-            } as Map);
-          });
+          }
+          return {
+            label: cell.v,
+            grade: mapGrade ?? getMapGrade("E"),
+            times: {
+              noway: alienJson.table.rows[6]?.c[cellIndex]?.v
+                ? timeStrToNumber(alienJson.table.rows[6]?.c[cellIndex].v)
+                : 9999999,
+              wr: alienJson.table.rows[5]?.c[cellIndex]?.v
+                ? timeStrToNumber(alienJson.table.rows[5]?.c[cellIndex].v)
+                : 9999999,
+              alien: alienJson.table.rows[4]?.c[cellIndex]?.v
+                ? timeStrToNumber(alienJson.table.rows[4]?.c[cellIndex].v)
+                : 9999999,
+              player: alienJson.table.rows[3]?.c[cellIndex]?.v
+                ? timeStrToNumber(alienJson.table.rows[3].c[cellIndex].v)
+                : 9999999,
+              challenger: noviceJson.table.rows[5]?.c[cellIndex]?.v
+                ? timeStrToNumber(noviceJson.table.rows[5]?.c[cellIndex].v)
+                : 9999999,
+              intermediate: noviceJson.table.rows[4]?.c[cellIndex]?.v
+                ? timeStrToNumber(noviceJson.table.rows[4]?.c[cellIndex].v)
+                : 9999999,
+              noob: noviceJson.table.rows[3]?.c[cellIndex]?.v
+                ? timeStrToNumber(noviceJson.table.rows[3]?.c[cellIndex].v)
+                : 9999999,
+            },
+            exchange,
+            tag: alienJson.table.rows[0]?.c[cellIndex]?.v ?? undefined,
+          } as Map;
         })
-        .filter((promise): promise is Promise<Map> => promise !== undefined);
+        .filter((map): map is Map => map !== undefined);
 
-      maps.value = await Promise.all(mapsPromises);
       return maps;
     } catch (error) {
       console.error("Error mapping maps:", error);
@@ -165,7 +165,7 @@ export const useSheetStore = defineStore("sheet", () => {
       loading.value.maps = false;
     }
   };
-  const mapPlayersAndTimes = async () => {
+  const mapPlayersAndTimes = async (fameJsonPromise: ReturnType<typeof fetchSheetData>) => {
     try {
       loading.value.players = true;
       loading.value.timeRecords = true;
@@ -257,7 +257,7 @@ export const useSheetStore = defineStore("sheet", () => {
       // authoritative label -> level table ("F" -> 0, "E 14" -> 1, ... "GOD"
       // -> 113) — read live rather than hardcoded, since it has changed
       // shape since this app was first built.
-      const fameJson = await fetchSheetData("Wall of Fame");
+      const fameJson = await fameJsonPromise;
       const rangMap: Record<string, number> = {};
       for (const row of fameJson.table.rows) {
         const rank = row.c[10]?.v;
@@ -298,24 +298,26 @@ export const useSheetStore = defineStore("sheet", () => {
       // rawFame is the raw Wall of Fame label per category — convert it to
       // actual Fame data here, and derive each player's completed-map count
       // from timeRecords, since neither was ever computed on the live site.
-      players.value = playersTmp
-        .filter((x) => !!x)
-        .map((player) => {
-          const fames: Player["fames"] = {};
-          for (const [slot, raw] of Object.entries(player.rawFame) as [
-            FameSlot,
-            string | undefined,
-          ][]) {
-            if (raw === undefined) continue;
-            const level = rangMap[raw];
-            if (level !== undefined) fames[slot] = buildFame(raw, level);
-          }
-          return {
-            ...player,
-            fames,
-            nbRecords: timeRecords.value.filter((tr) => tr.playerId === player.id).length,
-          };
-        });
+      const recordCountByPlayerId = new Map<string, number>();
+      for (const tr of timeRecords.value) {
+        recordCountByPlayerId.set(tr.playerId, (recordCountByPlayerId.get(tr.playerId) ?? 0) + 1);
+      }
+      players.value = playersTmp.map((player) => {
+        const fames: Player["fames"] = {};
+        for (const [slot, raw] of Object.entries(player.rawFame) as [
+          FameSlot,
+          string | undefined,
+        ][]) {
+          if (raw === undefined) continue;
+          const level = rangMap[raw];
+          if (level !== undefined) fames[slot] = buildFame(raw, level);
+        }
+        return {
+          ...player,
+          fames,
+          nbRecords: recordCountByPlayerId.get(player.id) ?? 0,
+        };
+      });
     } catch (error) {
       console.error("Error mapping players and times:", error);
     } finally {

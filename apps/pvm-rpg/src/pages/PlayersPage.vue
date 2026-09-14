@@ -4,18 +4,7 @@
       <div class="text-3xl font-bold text-theme-6">{{ t("nav.players") }}</div>
       <div>Total : {{ store.players.length }} {{ t("nav.players") }}</div>
       <div class="flex flex-wrap items-center gap-3">
-        <div class="relative">
-          <Icon
-            name="search"
-            class="pointer-events-none absolute top-1/2 left-2 h-4 w-4 -translate-y-1/2 text-theme-4"
-          />
-          <input
-            v-model="filter"
-            type="text"
-            :placeholder="t('nav.searchBy')"
-            class="rounded-full border-2 border-theme-5 bg-theme-2 py-1.5 pr-3 pl-8 text-sm outline-none focus:border-theme-6"
-          />
-        </div>
+        <SearchInput v-model="filter" :placeholder="t('nav.searchBy')" />
         <select
           v-model="categoryFilter"
           class="rounded-full border-2 border-theme-5 bg-theme-2 px-3 py-1.5 text-sm outline-none focus:border-theme-6"
@@ -48,7 +37,7 @@
           >
             <td class="p-3 font-bold">{{ player.name }}</td>
             <td class="p-3">{{ player.category }}</td>
-            <td class="p-3"><FameChip :fame="bestFame(player)" /></td>
+            <td class="p-3"><ColorChip :color="bestFame(player)" /></td>
             <td class="p-3 text-right">{{ player.nbRecords }}</td>
           </tr>
         </tbody>
@@ -64,10 +53,10 @@ import { computed, ref } from "vue";
 import { useSheetStore } from "../stores/sheet";
 import { t } from "../i18n";
 import type { Fame, Player } from "../types";
-import FameChip from "../components/FameChip.vue";
+import ColorChip from "../components/ColorChip.vue";
 import PlayerDialog from "../components/PlayerDialog.vue";
-import Icon from "../components/Icon.vue";
 import LoadingSpinner from "../components/LoadingSpinner.vue";
+import SearchInput from "../components/SearchInput.vue";
 
 const store = useSheetStore();
 

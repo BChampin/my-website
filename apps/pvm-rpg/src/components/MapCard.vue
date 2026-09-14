@@ -12,7 +12,7 @@
       alt=""
     />
     <div class="absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-2">
-      <GradeChip :grade="map.grade" />
+      <ColorChip :color="map.grade" />
       <MedalGroup :map="map" />
     </div>
     <div
@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import type { Map } from "../types";
-import GradeChip from "./GradeChip.vue";
+import ColorChip from "./ColorChip.vue";
 import MedalGroup from "./MedalGroup.vue";
 
 defineProps<{

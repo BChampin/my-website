@@ -4,18 +4,7 @@
       <div class="text-3xl font-bold text-theme-6">{{ t("nav.maps") }}</div>
       <div>Total : {{ store.maps.length }} {{ t("nav.maps") }}</div>
       <div class="flex flex-wrap items-center gap-3">
-        <div class="relative">
-          <Icon
-            name="search"
-            class="pointer-events-none absolute top-1/2 left-2 h-4 w-4 -translate-y-1/2 text-theme-4"
-          />
-          <input
-            v-model="filter"
-            type="text"
-            :placeholder="t('nav.searchBy')"
-            class="rounded-full border-2 border-theme-5 bg-theme-2 py-1.5 pr-3 pl-8 text-sm outline-none focus:border-theme-6"
-          />
-        </div>
+        <SearchInput v-model="filter" :placeholder="t('nav.searchBy')" />
         <select
           v-model="sortMethod"
           class="rounded-full border-2 border-theme-5 bg-theme-2 px-3 py-1.5 text-sm outline-none focus:border-theme-6"
@@ -58,7 +47,7 @@
         <tbody>
           <tr v-for="map of filteredMaps" :key="map.label" class="border-t border-theme-5">
             <td class="p-3 font-bold">{{ map.label }}</td>
-            <td class="p-3"><GradeChip :grade="map.grade" /></td>
+            <td class="p-3"><ColorChip :color="map.grade" /></td>
             <td class="p-3">{{ timeNumberToStr(map.times.alien) }}</td>
             <td class="p-3">{{ timeNumberToStr(map.times.player) }}</td>
             <td class="p-3">{{ timeNumberToStr(map.times.intermediate) }}</td>
@@ -89,10 +78,11 @@ import { computed, ref } from "vue";
 import { useSheetStore } from "../stores/sheet";
 import { timeNumberToStr } from "../utils";
 import { t } from "../i18n";
-import GradeChip from "../components/GradeChip.vue";
+import ColorChip from "../components/ColorChip.vue";
 import MapCard from "../components/MapCard.vue";
 import Icon from "../components/Icon.vue";
 import LoadingSpinner from "../components/LoadingSpinner.vue";
+import SearchInput from "../components/SearchInput.vue";
 
 const store = useSheetStore();
 

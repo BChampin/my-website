@@ -26,19 +26,22 @@ const props = defineProps<{
   time?: number;
 }>();
 
-const cptMedals = computed(() => {
-  let medals = ["noob", "intermediate", "challenger", "player", "alien", "wr", "noway"];
+// Single source of truth for medal order (worst to best), used both as the
+// "all levels" default and to derive which levels a given time earns.
+const MEDAL_ORDER = [
+  "noob",
+  "intermediate",
+  "challenger",
+  "player",
+  "alien",
+  "wr",
+  "noway",
+] as const;
 
-  if (props.map && props.time) {
-    medals = [];
-    if (props.map.times.noob > props.time) medals.push("noob");
-    if (props.map.times.intermediate > props.time) medals.push("intermediate");
-    if (props.map.times.challenger > props.time) medals.push("challenger");
-    if (props.map.times.player > props.time) medals.push("player");
-    if (props.map.times.alien > props.time) medals.push("alien");
-    if (props.map.times.wr > props.time) medals.push("wr");
-    if (props.map.times.noway > props.time) medals.push("noway");
-  }
+const cptMedals = computed(() => {
+  const map = props.map;
+  const time = props.time;
+  const medals = map && time ? MEDAL_ORDER.filter((level) => map.times[level] > time) : MEDAL_ORDER;
   return medals.map((str) => getLevel(str));
 });
 </script>

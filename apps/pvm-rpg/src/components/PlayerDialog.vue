@@ -1,5 +1,10 @@
 <template>
-  <dialog ref="dialogEl" class="player-dialog" @click="onBackdropClick" @close="emit('close')">
+  <dialog
+    ref="dialogEl"
+    class="player-dialog ui-surface"
+    @click="onBackdropClick"
+    @close="emit('close')"
+  >
     <div class="max-h-[85vh] w-[min(90vw,900px)] overflow-y-auto p-4">
       <div class="flex items-start justify-between gap-4">
         <div class="flex items-center gap-3">
@@ -34,7 +39,7 @@
           class="rounded-xl border-2 border-theme-5 bg-theme-2 p-3 text-center"
         >
           <div class="text-xs uppercase">{{ slot }}</div>
-          <FameChip :fame="fame" />
+          <ColorChip :color="fame" />
           <div class="mt-2 flex items-center gap-2">
             <MedalComponent :level="getLevel(slot)" />
             <div class="text-sm font-medium whitespace-nowrap">
@@ -93,7 +98,7 @@ import type { Fame, Map, MapGrade, Player, TimeRecord } from "../types";
 import { getLevel } from "../types";
 import MedalGroup from "./MedalGroup.vue";
 import MedalComponent from "./MedalComponent.vue";
-import FameChip from "./FameChip.vue";
+import ColorChip from "./ColorChip.vue";
 import Icon from "./Icon.vue";
 import { t } from "../i18n";
 import { timeNumberToStr } from "../utils";
@@ -146,8 +151,8 @@ const categorizedDoneMaps = computed(() => {
         categoryTimes: [],
         missingMaps: [],
       });
+      gradeIndex = categorizedDoneMaps.length - 1;
     }
-    gradeIndex = categorizedDoneMaps.findIndex((cdm) => cdm.grade.level === map.grade.level);
 
     if (playerMapTime) {
       categorizedDoneMaps[gradeIndex]?.categoryTimes?.push({ map, playerMapTime });
@@ -161,9 +166,9 @@ const categorizedDoneMaps = computed(() => {
 
 <style scoped>
 .player-dialog {
+  /* ui-surface gives the rounded panel + surface background; this dialog
+     wants no visible border and no padding around its own scrollable body. */
   border: none;
-  border-radius: 25px;
-  background-color: var(--theme-2);
   color: var(--theme-3);
   padding: 0;
 }
