@@ -29,7 +29,25 @@ live site untouched until then. Go-ahead is required between phases below.
       toggle — zero console errors). `current/` is left in place until this
       is confirmed fully stable; the `_archive/` PHP versions stay dropped
       from the new trunk per phase 1.
-- [ ] Phase 3 — Rewrite pvm-rpg
+- [x] **Phase 3 — Rewrite pvm-rpg.** `apps/pvm-rpg` is a plain Vue 3 +
+      Tailwind v4 + vue-router + Pinia rewrite of `pvm-rpg`, dropping Quasar
+      entirely (native `<table>`/grid toggle for the maps/players lists,
+      native `<dialog>` for the player detail view, hand-rolled `Icon.vue`
+      instead of ionicons). The Google Sheet fetching/parsing logic in
+      `stores/sheet.ts` is kept essentially as-is. Two dead features from the
+      live site were fixed rather than faithfully ported (explicitly
+      confirmed with Bastien first): the Fame/Wall-of-Fame system
+      (`rawFame`→`fames`, `nbRecords`) was never actually computed on the old
+      site, and there was no language-switcher UI at all despite an
+      (also-buggy: `en` imported `fr.json`) `en`/`fr` i18n composable — both
+      now work, the latter via a new `useDictionary` composable in
+      `packages/ui` (flat `key -> string` i18n, alongside `useLocalization`'s
+      per-field `{en,fr}` shape). Verified against the **live** Google Sheet
+      via the paired Chrome extension: real map/player/fame data render
+      correctly in both themes and both languages, search/sort/category
+      filters work, the player dialog's medal/fame/missing-maps sections
+      work. `current/`'s counterpart (`pvm-rpg` repo) is untouched/still
+      live.
 - [ ] Phase 4 — Rewrite rpg-tp
 - [ ] Phase 5 — Wire the unified GitHub Pages deploy
 - [ ] Phase 6 — Merge to `main`
@@ -205,8 +223,23 @@ Go-ahead required between each phase.
 - No `claude-in-chrome`-style browser tool was available in this session
   despite being listed; visual verification instead used a headless
   Chromium installed via `npx playwright install chromium` (no `--with-deps`,
-  since there's no sudo) plus a small ad-hoc script — reused across later
-  phases for the same purpose.
+  since there's no sudo) plus a small ad-hoc script. Fixed partway through
+  phase 2 (a duplicate-Brave-installation problem on Bastien's machine plus
+  running `/chrome`) — every phase from 3 onward uses the real paired
+  extension instead.
+- **pvm-rpg's live Google Sheet has drifted from what the original app's code
+  assumed**, discovered only by testing against the real sheet (not visible
+  from the code alone): map grade cells are now `"E (LEVEL 1)"`-style
+  strings instead of bare `"E"`, with two new tiers (`Astral`, `Tryharder`)
+  inserted after `SS` — `getMapGrade` in `apps/pvm-rpg/src/types.ts` strips
+  the `(...)` suffix and falls back to grade `E` instead of throwing on an
+  unrecognized one. The Wall of Fame sheet's fame cells changed from raw
+  numeric levels to label strings (`"GOD"`, `"Divin 12"`, `"S 8"`, …) across
+  114 sub-levels (was 78) — rather than hardcode a second table that could
+  drift again, `stores/sheet.ts` now reads the sheet's own `"Rang"` reference
+  column (cells `c[10]`/`c[11]`) at runtime as the label→level source of
+  truth. If pvm-rpg's maps/players/fame data ever look empty or wrong again,
+  check whether the sheet's shape moved again before assuming a code bug.
 
 ## Verification
 

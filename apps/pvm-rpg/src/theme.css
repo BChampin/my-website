@@ -1,0 +1,23 @@
+/* pvm-rpg palette (navy/gold, from the original Quasar $primary/$secondary) —
+   see packages/ui/README.md for what each slot means. */
+:root {
+  --theme-1: #f2f5f5;
+  --theme-2: #ffffff;
+  --theme-3: #1a1a1a;
+  --theme-4: #0d3b66;
+  --theme-5: #d1d1d1;
+  --theme-6: #0d3b66;
+  --theme-7: #f4d35e;
+  --theme-8: #e8ecec;
+}
+
+[data-theme="dark"] {
+  --theme-1: #121212;
+  --theme-2: #1e1e1e;
+  --theme-3: #f2f5f5;
+  --theme-4: #f4d35e;
+  --theme-5: #333333;
+  --theme-6: #0d3b66;
+  --theme-7: #f4d35e;
+  --theme-8: #262626;
+}

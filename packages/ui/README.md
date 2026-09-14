@@ -14,9 +14,12 @@ compiles it.
   portfolio (see `PLAN.md` phase 2); extend as later phases find more
   cross-site patterns.
 - `src/composables/` — `useDarkMode` (module-singleton, persists to
-  `localStorage`, defaults to `prefers-color-scheme`) and `useLocalization`
+  `localStorage`, defaults to `prefers-color-scheme`); `useLocalization`
   (generic `{en, fr, ...}`-shaped i18n: a `lang` ref, `switchLang`, and a
-  `t(path, source?)` dotted-path getter).
+  `t(path, source?)` dotted-path getter — for per-field translatable data like
+  the portfolio's `data.ts`); `useDictionary` (flat `key -> string` i18n: a
+  `lang` ref, `switchLang`, and a `t(key)` getter — for per-locale-file
+  content like pvm-rpg/rpg-tp's `fr.json`/`en.json`).
 - `src/types.ts` — shared shapes (`Translatable`, `TimelineItem`,
   `CarouselItem`) used by both the components above and each app's own
   `data.ts`.

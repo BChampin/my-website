@@ -1,4 +1,5 @@
 export { useDarkMode } from "./composables/useDarkMode";
+export { useDictionary } from "./composables/useDictionary";
 export { useLocalization } from "./composables/useLocalization";
 
 export { default as Card } from "./components/Card.vue";
