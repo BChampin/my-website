@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap");
+@import "tailwindcss";
+@import "./theme.css";
+@import "@my-website/ui/tailwind/preset.css";
+
+@theme {
+  --color-rpgtp-sidebar: var(--rpgtp-sidebar-bg);
+  --color-rpgtp-sidebar-text: var(--rpgtp-sidebar-text);
+}
+
+body {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  background-color: var(--theme-1);
+  color: var(--theme-3);
+}
+
+.transitionChildren,
+.transitionChildren * {
+  transition: all 0.5s ease-in-out;
+}
+
+.link {
+  color: var(--theme-4);
+  cursor: pointer;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 2.5px;
+  transition: color 0.3s ease;
+}
+.link:hover {
+  color: var(--theme-6);
+}

@@ -1,0 +1,31 @@
+/* rpg-tp palette — this app's original colors, remapped onto the shared
+   --theme-1..8 contract (its own numbering predates the shared trunk and
+   meant something different). See packages/ui/README.md for the slots.
+   Extra tokens below (sidebar chrome, brand accents) are rpg-tp-specific. */
+:root {
+  --theme-1: #ffffff;
+  --theme-2: #eeedfb;
+  --theme-3: #0e0574;
+  --theme-4: #8d8fb2;
+  --theme-5: #f4f4f4;
+  --theme-6: #544fd9;
+  --theme-7: #ffffff;
+  --theme-8: #dbdcec;
+
+  /* The sidebar keeps its own dark "chrome" regardless of light/dark mode. */
+  --rpgtp-sidebar-bg: #0d1046;
+  --rpgtp-sidebar-text: #f8f8f8;
+}
+
+[data-theme="dark"] {
+  --theme-1: #161616;
+  --theme-2: #232323;
+  --theme-3: #fbfbfb;
+  --theme-4: #898989;
+  --theme-5: #232323;
+  --theme-6: #bfaa82;
+  --theme-7: #161616;
+  --theme-8: #4f4f4f;
+
+  --rpgtp-sidebar-bg: #232323;
+}

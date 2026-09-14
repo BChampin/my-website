@@ -107,6 +107,43 @@ importers:
         specifier: ^3.1.1
         version: 3.3.11(typescript@5.9.3)
 
+  apps/rpg-tp:
+    dependencies:
+      '@fortawesome/free-brands-svg-icons':
+        specifier: ^6.7.2
+        version: 6.7.2
+      '@my-website/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.42(typescript@5.9.3)
+      vue-router:
+        specifier: 'catalog:'
+        version: 4.6.4(vue@3.5.42(typescript@5.9.3))
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: 'catalog:'
+        version: 4.3.3(@voidzero-dev/vite-plus-core@0.3.2(jiti@2.7.0)(typescript@5.9.3))
+      '@vitejs/plugin-vue':
+        specifier: ^6.0.1
+        version: 6.0.9(@voidzero-dev/vite-plus-core@0.3.2(jiti@2.7.0)(typescript@5.9.3))(vue@3.5.42(typescript@5.9.3))
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 4.3.3
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vite:
+        specifier: npm:@voidzero-dev/vite-plus-core@latest
+        version: '@voidzero-dev/vite-plus-core@0.3.2(jiti@2.7.0)(typescript@5.9.3)'
+      vite-plus:
+        specifier: 'catalog:'
+        version: 0.3.2(jiti@2.7.0)(typescript@5.9.3)
+      vue-tsc:
+        specifier: ^3.1.1
+        version: 3.3.11(typescript@5.9.3)
+
   packages/ui:
     devDependencies:
       vite-plus:
@@ -145,6 +182,14 @@ packages:
 
   '@blazediff/core@1.9.1':
     resolution: {integrity: sha512-ehg3jIkYKulZh+8om/O25vkvSsXXwC+skXmyA87FFx6A/45eqOkZsBltMw/TVteb0mloiGT8oGRTcjRAz66zaA==}
+
+  '@fortawesome/fontawesome-common-types@6.7.2':
+    resolution: {integrity: sha512-Zs+YeHUC5fkt7Mg1l6XTniei3k4bwG/yo3iFUtZWd/pMx9g3fdvkSK9E0FOC+++phXOka78uJcYb8JaFkW52Xg==}
+    engines: {node: '>=6'}
+
+  '@fortawesome/free-brands-svg-icons@6.7.2':
+    resolution: {integrity: sha512-zu0evbcRTgjKfrr77/2XX+bU+kuGfjm0LbajJHVIgBWNIDzrhpRxiCPNT8DW5AdmSsq7Mcf9D1bH0aSeSUSM+Q==}
+    engines: {node: '>=6'}
 
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
@@ -1440,6 +1485,12 @@ snapshots:
       '@babel/helper-validator-identifier': 7.29.7
 
   '@blazediff/core@1.9.1': {}
+
+  '@fortawesome/fontawesome-common-types@6.7.2': {}
+
+  '@fortawesome/free-brands-svg-icons@6.7.2':
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 6.7.2
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:

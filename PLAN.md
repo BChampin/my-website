@@ -48,7 +48,23 @@ live site untouched until then. Go-ahead is required between phases below.
       filters work, the player dialog's medal/fame/missing-maps sections
       work. `current/`'s counterpart (`pvm-rpg` repo) is untouched/still
       live.
-- [ ] Phase 4 — Rewrite rpg-tp
+- [x] **Phase 4 — Rewrite rpg-tp.** `apps/rpg-tp` is a plain Vue 3 + Tailwind
+      v4 + vue-router rewrite of `rpg-tp`, React → Vue, dropping
+      `@headlessui/react` (native tab/dialog logic instead) and
+      `@heroicons/react` (hand-rolled `Icon.vue`, same pattern as
+      `apps/pvm-rpg`). Kept `@fortawesome/free-brands-svg-icons` for the real
+      social/GitHub logos (icon _data_ only, rendered through a small
+      `FaIcon.vue`, no React wrapper package). Static JSON data
+      (`public/json/rpg_tp.json`) fetched via a simple module-singleton
+      composable — no Pinia needed here, unlike pvm-rpg's multi-sheet fetch.
+      rpg-tp's own historical `--theme-1..8` numbering (it predates the
+      shared trunk) was remapped by actual color role, not by index, onto
+      the shared contract; its always-dark sidebar chrome and the
+      colorblind/muted toggles (kept as faithful, currently-inert-effect
+      ports — see gotchas) live as app-specific extras alongside it. Verified
+      via the paired Chrome extension: all 3 routes, edition info/
+      participants/trailer/annonce/récap tabs, player cards + social links,
+      org cards, dark/light toggle — zero console errors.
 - [ ] Phase 5 — Wire the unified GitHub Pages deploy
 - [ ] Phase 6 — Merge to `main`
 
@@ -240,6 +256,25 @@ Go-ahead required between each phase.
   column (cells `c[10]`/`c[11]`) at runtime as the label→level source of
   truth. If pvm-rpg's maps/players/fame data ever look empty or wrong again,
   check whether the sheet's shape moved again before assuming a code bug.
+- **This machine's Brave profile has the Dark Reader extension active**,
+  which repaints page colors independently of the page's own CSS/theme —
+  confirmed via `data-darkreader-mode` on `<html>`. It's mostly invisible
+  against an already-dark app theme, but showed up hard while building
+  `apps/rpg-tp`'s `TeamBadge`: pastel Tailwind badge colors (`bg-rose-100`
+  etc.) rendered as plain dark boxes in every screenshot, even though
+  `getComputedStyle`/the inline `style` attribute confirmed the right colors
+  were genuinely being applied — Dark Reader was just overriding the paint,
+  not reflecting a real bug. If a color looks wrong in a screenshot again,
+  check the actual computed/inline value via `javascript_tool` before
+  assuming the code is broken.
+- **Don't source Tailwind classes from a runtime color->classes lookup
+  object** (`colorVariants[team.color]`, one string of space-separated
+  classes per key) for anything dynamic — it's exactly the shape of case
+  Tailwind's content scanner is least reliable on already, and it also
+  can't survive being misread as a scanning bug when something unrelated
+  (like Dark Reader, above) is actually the cause. `TeamBadge.vue` in
+  `apps/rpg-tp` uses a plain hex lookup object rendered via inline `:style`
+  instead — same pattern as `GradeChip`/`FameChip` in `apps/pvm-rpg`.
 
 ## Verification
 
