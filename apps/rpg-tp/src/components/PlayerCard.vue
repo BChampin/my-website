@@ -2,7 +2,7 @@
   <div class="items-center rounded-lg bg-theme-2 shadow sm:flex">
     <img
       class="w-full rounded-lg object-cover sm:rounded-none sm:rounded-l-lg"
-      :src="publicUrl(`players/player_${player.id}.png`)"
+      :src="playerImageUrl(player.id)"
       :alt="`${player.name} picture`"
       style="height: 100%; max-height: 200px; width: auto; aspect-ratio: initial"
     />
@@ -42,17 +42,15 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import type { TpPlayer, TpTeam } from "../types";
-import { useRpgTpData } from "../data";
-import { publicUrl } from "../publicUrl";
+import { findTeam, useRpgTpData } from "../data";
+import { playerImageUrl } from "../publicUrl";
 import TeamBadge from "./TeamBadge.vue";
 import FaIcon from "./FaIcon.vue";
 
 const props = defineProps<{ player: TpPlayer }>();
 const data = useRpgTpData();
 
-const team = computed<TpTeam | undefined>(() =>
-  data.value?.teams.find((t) => t.id === props.player.teamId),
-);
+const team = computed<TpTeam | undefined>(() => findTeam(data.value, props.player.teamId));
 
 const socials = computed(() =>
   (

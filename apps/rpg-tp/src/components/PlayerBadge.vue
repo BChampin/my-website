@@ -7,7 +7,7 @@
     class="m-1 flex items-center gap-2 rounded-full bg-theme-2 p-1 text-theme-3 shadow"
   >
     <img
-      :src="publicUrl(`players/player_${player.id}.png`)"
+      :src="playerImageUrl(player.id)"
       :alt="`${player.name} picture`"
       class="h-8 w-8 rounded-full object-cover"
     />
@@ -26,8 +26,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { TpPlayer, TpTeam, TpTime } from "../types";
-import { useRpgTpData } from "../data";
-import { publicUrl } from "../publicUrl";
+import { findTeam, useRpgTpData } from "../data";
+import { playerImageUrl } from "../publicUrl";
 import TeamBadge from "./TeamBadge.vue";
 import Icon from "./Icon.vue";
 
@@ -35,6 +35,6 @@ const props = defineProps<{ player: TpPlayer; time: TpTime }>();
 const data = useRpgTpData();
 
 const badgeTeam = computed<TpTeam | undefined>(() =>
-  data.value?.teams.find((t) => t.id === (props.time.teamId ?? props.player.teamId)),
+  findTeam(data.value, props.time.teamId ?? props.player.teamId),
 );
 </script>

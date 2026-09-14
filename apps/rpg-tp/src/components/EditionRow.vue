@@ -22,7 +22,7 @@
           >
             #{{ edition.id }}
           </div>
-          <div class="text-xl sm:text-3xl">{{ editionMaps.map((m) => m.name).join(" / ") }}</div>
+          <div class="text-xl sm:text-3xl">{{ mapNames }}</div>
         </div>
       </div>
       <Divider />
@@ -61,15 +61,15 @@
         </div>
 
         <div v-else-if="activeTabKey === 'participants'">
-          <div v-for="(map, index) of editionMaps" :key="map.id" class="mt-2">
+          <div v-for="(group, index) of participantsByMap" :key="group.map.id" class="mt-2">
             <Divider v-if="index > 0" />
-            <MapInfo :map="map" />
+            <MapInfo :map="group.map" />
             <div class="grid grid-cols-1 sm:grid-cols-2">
               <PlayerBadge
-                v-for="time of editionTimes.filter((t) => t.mapId === map.id)"
-                :key="`${time.mapId}_${time.playerId}`"
-                :player="data.players.find((p) => p.id === time.playerId)!"
-                :time="time"
+                v-for="entry of group.entries"
+                :key="`${entry.time.mapId}_${entry.time.playerId}`"
+                :player="entry.player"
+                :time="entry.time"
               />
             </div>
           </div>
@@ -119,7 +119,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import type { TpEdition, TpTeam, TpTime } from "../types";
-import { useRpgTpData } from "../data";
+import { findPlayer, findTeam, useRpgTpData } from "../data";
 import { publicUrl } from "../publicUrl";
 import Divider from "./Divider.vue";
 import MapInfo from "./MapInfo.vue";
@@ -153,7 +153,18 @@ const editionTimes = computed<TpTime[]>(
 );
 
 const winnerTeam = computed<TpTeam | undefined>(() =>
-  data.value?.teams.find((t) => t.id === props.edition.winnerTeamId),
+  findTeam(data.value, props.edition.winnerTeamId),
+);
+
+const mapNames = computed(() => editionMaps.value.map((m) => m.name).join(" / "));
+
+const participantsByMap = computed(() =>
+  editionMaps.value.map((map) => ({
+    map,
+    entries: editionTimes.value
+      .filter((t) => t.mapId === map.id)
+      .map((time) => ({ time, player: findPlayer(data.value, time.playerId)! })),
+  })),
 );
 
 const thumbnail = computed(

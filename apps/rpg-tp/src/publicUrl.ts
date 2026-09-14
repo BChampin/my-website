@@ -6,3 +6,8 @@
 export function publicUrl(path: string): string {
   return `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 }
+
+/** URL of a player's portrait, shared by every place that renders one. */
+export function playerImageUrl(playerId: string): string {
+  return publicUrl(`players/player_${playerId}.png`);
+}
