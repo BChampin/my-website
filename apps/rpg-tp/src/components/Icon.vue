@@ -77,6 +77,12 @@
       <path d="M10 19 a2 2 0 0 0 4 0" />
       <line x1="3" y1="21" x2="21" y2="3" />
     </template>
+    <template v-else-if="props.name === 'chart'">
+      <line x1="4" y1="20" x2="20" y2="20" />
+      <rect x="5.5" y="13" width="4" height="7" />
+      <rect x="10.5" y="9" width="4" height="11" />
+      <rect x="15.5" y="4" width="4" height="16" />
+    </template>
   </svg>
 </template>
 
@@ -94,7 +100,8 @@ const props = defineProps<{
     | "eye"
     | "eye-slash"
     | "bell"
-    | "bell-slash";
+    | "bell-slash"
+    | "chart";
   class?: string;
 }>();
 </script>

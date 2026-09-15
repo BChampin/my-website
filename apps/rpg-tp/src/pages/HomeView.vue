@@ -9,14 +9,21 @@
     </div>
     <Title content="Les éditions" />
     <Divider />
+    <input
+      v-model="filter"
+      type="text"
+      placeholder="Chercher par carte, équipe ou numéro d'édition..."
+      class="ui-surface mb-6 w-full max-w-md px-4 py-2 text-theme-3 outline-none placeholder:text-theme-4"
+    />
     <div class="flex flex-col gap-10">
-      <EditionRow v-for="edition of reversedEditions" :key="edition.id" :edition="edition" />
+      <EditionRow v-for="edition of filteredEditions" :key="edition.id" :edition="edition" />
+      <div v-if="!filteredEditions.length" class="text-theme-4">Aucune édition ne correspond.</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useRpgTpData } from "../data";
 import Title from "../components/Title.vue";
 import Divider from "../components/Divider.vue";
@@ -24,4 +31,21 @@ import EditionRow from "../components/EditionRow.vue";
 
 const data = useRpgTpData();
 const reversedEditions = computed(() => [...(data.value?.editions ?? [])].reverse());
+
+const filter = ref("");
+const filteredEditions = computed(() => {
+  const needle = filter.value.trim().toLowerCase();
+  if (!needle) return reversedEditions.value;
+  return reversedEditions.value.filter((edition) => {
+    if (edition.id.toLowerCase().includes(needle)) return true;
+    const winner = data.value?.teams.find((t) => t.id === edition.winnerTeamId);
+    if (
+      winner &&
+      (winner.name.toLowerCase().includes(needle) || winner.id.toLowerCase().includes(needle))
+    )
+      return true;
+    const mapNames = data.value?.maps.filter((m) => edition.mapsIds.includes(m.id)) ?? [];
+    return mapNames.some((m) => m.name.toLowerCase().includes(needle));
+  });
+});
 </script>

@@ -12,7 +12,7 @@
       class="h-8 w-8 rounded-full object-cover"
     />
     <div class="hidden sm:flex">
-      <TeamBadge :team="badgeTeam" />
+      <TeamBadge :team="badgeTeam" :linkable="false" />
     </div>
     <span class="font-medium">{{ player.name }}</span>
     <span class="text-sm text-theme-4">{{ time.time }}</span>

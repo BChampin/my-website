@@ -5,10 +5,12 @@
     <Sidebar />
     <div class="flex grow flex-col gap-6 px-4 sm:pr-0">
       <router-view />
+      <AppFooter />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import Sidebar from "./components/Sidebar.vue";
+import AppFooter from "./components/AppFooter.vue";
 </script>

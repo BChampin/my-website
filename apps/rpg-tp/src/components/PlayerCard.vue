@@ -9,7 +9,9 @@
     <div class="p-5">
       <div class="row row-nowrap w-full justify-between">
         <h3 class="text-xl font-bold tracking-tight text-theme-3">
-          <a :href="player.twitch" target="_blank" rel="noopener noreferrer">{{ player.name }}</a>
+          <router-link :to="playerPath(player.id)" class="hover:opacity-80">{{
+            player.name
+          }}</router-link>
         </h3>
         <TeamBadge :team="team" />
       </div>
@@ -32,18 +34,10 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import {
-  faBluesky,
-  faDiscord,
-  faInstagram,
-  faTiktok,
-  faTwitch,
-  faTwitter,
-  faYoutube,
-} from "@fortawesome/free-brands-svg-icons";
 import type { TpPlayer, TpTeam } from "../types";
-import { findTeam, useRpgTpData } from "../data";
+import { findTeam, playerSocials, useRpgTpData } from "../data";
 import { playerImageUrl } from "../publicUrl";
+import { playerPath } from "../router";
 import TeamBadge from "./TeamBadge.vue";
 import FaIcon from "./FaIcon.vue";
 
@@ -52,19 +46,5 @@ const data = useRpgTpData();
 
 const team = computed<TpTeam | undefined>(() => findTeam(data.value, props.player.teamId));
 
-const socials = computed(() =>
-  (
-    [
-      { key: "twitch", icon: faTwitch },
-      { key: "twitter", icon: faTwitter },
-      { key: "discord", icon: faDiscord },
-      { key: "youtube", icon: faYoutube },
-      { key: "bluesky", icon: faBluesky },
-      { key: "instagram", icon: faInstagram },
-      { key: "tiktok", icon: faTiktok },
-    ] as const
-  )
-    .map((s) => ({ ...s, href: props.player[s.key] }))
-    .filter((s): s is typeof s & { href: string } => !!s.href),
-);
+const socials = computed(() => playerSocials(props.player));
 </script>

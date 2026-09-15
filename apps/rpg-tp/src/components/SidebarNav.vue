@@ -24,6 +24,7 @@ const emit = defineEmits<{ navigate: [] }>();
 const items = [
   { to: Paths.HOME, label: "Accueil", icon: "home" as const },
   { to: Paths.PLAYERS, label: "Joueurs", icon: "users" as const },
+  { to: Paths.STATS, label: "Stats", icon: "chart" as const },
   { to: Paths.ORGA, label: "Orga", icon: "heart" as const },
 ];
 </script>
