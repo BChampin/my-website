@@ -92,7 +92,21 @@ live site untouched until then. Go-ahead is required between phases below.
       tearing down those two repos' own Pages configs/CNAMEs — those touch
       repos other than this one and only make sense once the new site is
       live and confirmed stable, i.e. after phase 6's merge.
-- [ ] Phase 6 — Merge to `main`
+- [x] **Phase 6 — Merge to `main`.** `main` hadn't moved since
+      `trunk-monorepo` branched off it, so this was a fast-forward merge —
+      no conflicts, no divergent history to reconcile. Scope of this phase
+      is the merge itself only: `git push` (which would trigger
+      `.github/workflows/deploy.yml` and put the new trunk live at
+      champin.dev, replacing the current classic-deploy site) is a separate,
+      deliberate step, done only once explicitly requested. Likewise, the
+      301 redirects from the old `pvm-rpg.champin.dev`/`rpg-tp.champin.dev`
+      subdomains and retiring/archiving those two repos as standalones
+      (mentioned in the original phase list) are out of scope here — they
+      touch repos other than this one and only make sense after the merged
+      trunk is confirmed live, so they remain a follow-up once Bastien asks
+      for them. The legacy `current/`/`_archive/`/`_live/` content is
+      untouched and still sits in the repo, per phase 2's note that it
+      stays until the new trunk is confirmed stable in production.
 
 ## Context
 
