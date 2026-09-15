@@ -325,8 +325,14 @@ export const rpgTpData: TpData = {
     {
       id: "jimmyboy",
       name: "JimmyBoy",
-      quote: "",
+      quote:
+        "En Live tous les jours à 16h, casse des cubes, fait des petits Let's Play, roule sur MK, tout ça en chill !",
       teamId: "STNK",
+      twitch: "https://www.twitch.tv/jimmyboyyy",
+      twitter: "https://twitter.com/JimmyBoyyy_",
+      youtube: "https://www.youtube.com/channel/UCWMDouVLeI-akimFWkdt3Pw",
+      instagram: "https://www.instagram.com/jimmyboyyy_/",
+      discord: "https://discord.gg/jimmyboyyy",
     },
     {
       id: "laink",
