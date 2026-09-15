@@ -3,6 +3,4 @@ _archive/
 _live/
 extension/
 current/
-nginx/
-docker-compose.yml
 README.md
