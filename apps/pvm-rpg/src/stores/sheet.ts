@@ -48,6 +48,32 @@ export const useSheetStore = defineStore("sheet", () => {
       console.error(err);
     }
   };
+
+  // Short-lived cache so navigating between pages (or reloading) within the
+  // same tab doesn't re-fetch all 8 sheets every time — new player times still
+  // show up within CACHE_TTL_MS of being submitted to the live sheet.
+  const CACHE_KEY = "pvm-rpg:sheet-data";
+  const CACHE_TTL_MS = 5 * 60 * 1000;
+  type SheetCache = { timestamp: number; sheetData: SheetData[]; fameJson: SheetData };
+  const readCache = (): SheetCache | undefined => {
+    try {
+      const raw = sessionStorage.getItem(CACHE_KEY);
+      if (!raw) return undefined;
+      const cached = JSON.parse(raw) as SheetCache;
+      if (Date.now() - cached.timestamp > CACHE_TTL_MS) return undefined;
+      return cached;
+    } catch {
+      return undefined;
+    }
+  };
+  const writeCache = (cache: SheetCache) => {
+    try {
+      sessionStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+    } catch {
+      // sessionStorage may be unavailable (private browsing, quota) — caching is best-effort
+    }
+  };
+
   const init = async () => {
     if (sheetData.value.length) return true;
 
@@ -55,15 +81,28 @@ export const useSheetStore = defineStore("sheet", () => {
     loading.value.players = true;
     loading.value.timeRecords = true;
 
-    const fetchPromises = SHEET_NAMES.map((sheetName) => fetchSheetData(sheetName));
-    // Kicked off alongside the other sheets so it fetches in parallel; only
-    // awaited later, right where mapPlayersAndTimes needs it.
-    const fameJsonPromise = fetchSheetData("Wall of Fame");
     try {
+      const cached = readCache();
+      if (cached) {
+        sheetData.value = cached.sheetData;
+        await mapMaps();
+        await mapPlayersAndTimes(Promise.resolve(cached.fameJson));
+        return true;
+      }
+
+      const fetchPromises = SHEET_NAMES.map((sheetName) => fetchSheetData(sheetName));
+      // Kicked off alongside the other sheets so it fetches in parallel; only
+      // awaited later, right where mapPlayersAndTimes needs it.
+      const fameJsonPromise = fetchSheetData("Wall of Fame");
       // Array of data for each sheet
       sheetData.value = await Promise.all(fetchPromises);
       await mapMaps();
       await mapPlayersAndTimes(fameJsonPromise);
+      writeCache({
+        timestamp: Date.now(),
+        sheetData: sheetData.value,
+        fameJson: await fameJsonPromise,
+      });
       return true;
     } catch (error) {
       console.error("Error fetching all sheets data:", error);
