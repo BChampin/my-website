@@ -24,6 +24,25 @@
       </div>
     </div>
 
+    <div v-if="newPlayers.length" class="flex justify-center bg-theme-1 p-8">
+      <div class="w-full max-w-3xl">
+        <div class="flex items-center gap-3">
+          <Icon name="users" class="h-6 w-6 text-theme-6" />
+          <div class="text-xl font-semibold">{{ t("home.newPlayers.title") }}</div>
+        </div>
+        <div class="my-3 border-t border-theme-5" />
+        <div class="flex flex-wrap gap-2">
+          <div
+            v-for="player of newPlayers"
+            :key="player.id"
+            class="rounded-full border-2 border-theme-5 bg-theme-2 px-3 py-1 text-sm font-medium"
+          >
+            {{ player.name }}
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="flex justify-center bg-theme-1 p-8">
       <div class="w-full max-w-3xl">
         <div class="flex items-center gap-3">
@@ -103,4 +122,9 @@ const stats = computed(() => [
   { label: t("nav.players"), value: store.players.length, loading: store.loading.players },
   { label: t("nav.records"), value: store.timeRecords.length, loading: store.loading.timeRecords },
 ]);
+
+// The sheet has no per-entry timestamp, so this approximates "recent" as the
+// last rows encountered per player sheet, which in practice is where new
+// signups get appended.
+const newPlayers = computed(() => store.players.slice(-8).reverse());
 </script>

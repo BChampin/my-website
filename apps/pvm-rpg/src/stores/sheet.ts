@@ -35,6 +35,7 @@ export const useSheetStore = defineStore("sheet", () => {
     players: true,
     timeRecords: true,
   });
+  const error = ref(false);
   const fetchSheetData = async (sheetName: string) => {
     try {
       const response = await fetch(`${SHEET_URL}${sheetName}`);
@@ -80,6 +81,7 @@ export const useSheetStore = defineStore("sheet", () => {
     loading.value.maps = true;
     loading.value.players = true;
     loading.value.timeRecords = true;
+    error.value = false;
 
     try {
       const cached = readCache();
@@ -104,9 +106,15 @@ export const useSheetStore = defineStore("sheet", () => {
         fameJson: await fameJsonPromise,
       });
       return true;
-    } catch (error) {
-      console.error("Error fetching all sheets data:", error);
+    } catch (err) {
+      console.error("Error fetching all sheets data:", err);
+      error.value = true;
     }
+  };
+
+  const retry = () => {
+    sheetData.value = [];
+    void init();
   };
 
   // TM data
@@ -198,8 +206,9 @@ export const useSheetStore = defineStore("sheet", () => {
         .filter((map): map is Map => map !== undefined);
 
       return maps;
-    } catch (error) {
-      console.error("Error mapping maps:", error);
+    } catch (err) {
+      console.error("Error mapping maps:", err);
+      error.value = true;
     } finally {
       loading.value.maps = false;
     }
@@ -357,8 +366,9 @@ export const useSheetStore = defineStore("sheet", () => {
           nbRecords: recordCountByPlayerId.get(player.id) ?? 0,
         };
       });
-    } catch (error) {
-      console.error("Error mapping players and times:", error);
+    } catch (err) {
+      console.error("Error mapping players and times:", err);
+      error.value = true;
     } finally {
       loading.value.players = false;
       loading.value.timeRecords = false;
@@ -369,7 +379,9 @@ export const useSheetStore = defineStore("sheet", () => {
     // Sheet
     SHEET_URL_HTML,
     loading,
+    error,
     init,
+    retry,
 
     // TM data
     maps,

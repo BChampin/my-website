@@ -43,5 +43,14 @@
   "maps.sort.alphabetical.asc": "Alphabetical - Ascending",
   "maps.sort.alphabetical.desc": "Alphabetical - Descending",
   "maps.sort.duration.asc": "Duration - Ascending",
-  "maps.sort.duration.desc": "Duration - Descending"
+  "maps.sort.duration.desc": "Duration - Descending",
+  "players.sort.fame.desc": "Fame - Highest first",
+  "players.sort.fame.asc": "Fame - Lowest first",
+  "players.sort.records.desc": "Times recorded - Most first",
+  "players.sort.records.asc": "Times recorded - Fewest first",
+  "players.sort.alphabetical.asc": "Alphabetical - Ascending",
+  "players.sort.alphabetical.desc": "Alphabetical - Descending",
+  "home.newPlayers.title": "New players",
+  "errors.fetchFailed": "Couldn't load data from the sheet.",
+  "errors.retry": "Retry"
 }

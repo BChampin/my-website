@@ -14,6 +14,19 @@
     >
       GitHub repo
     </a>
+    <div>·</div>
+    <a
+      href="https://champin.dev/"
+      class="underline decoration-1 underline-offset-2 hover:opacity-80"
+    >
+      champin.dev
+    </a>
+    <a
+      href="https://champin.dev/rpg-tp/"
+      class="underline decoration-1 underline-offset-2 hover:opacity-80"
+    >
+      RPG TeamPlay
+    </a>
   </footer>
 </template>
 

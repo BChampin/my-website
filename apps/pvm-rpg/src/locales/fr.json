@@ -43,5 +43,14 @@
   "maps.sort.alphabetical.asc": "Alphabétique - Ordre croissant",
   "maps.sort.alphabetical.desc": "Alphabétique - Ordre décroissant",
   "maps.sort.duration.asc": "Durée - Ordre croissant",
-  "maps.sort.duration.desc": "Durée - Ordre décroissant"
+  "maps.sort.duration.desc": "Durée - Ordre décroissant",
+  "players.sort.fame.desc": "Fame - Du plus haut au plus bas",
+  "players.sort.fame.asc": "Fame - Du plus bas au plus haut",
+  "players.sort.records.desc": "Temps enregistrés - Du plus grand nombre",
+  "players.sort.records.asc": "Temps enregistrés - Du plus petit nombre",
+  "players.sort.alphabetical.asc": "Alphabétique - Ordre croissant",
+  "players.sort.alphabetical.desc": "Alphabétique - Ordre décroissant",
+  "home.newPlayers.title": "Nouveaux joueurs",
+  "errors.fetchFailed": "Impossible de charger les données du sheet.",
+  "errors.retry": "Réessayer"
 }
