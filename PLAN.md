@@ -65,7 +65,33 @@ live site untouched until then. Go-ahead is required between phases below.
       via the paired Chrome extension: all 3 routes, edition info/
       participants/trailer/annonce/récap tabs, player cards + social links,
       org cards, dark/light toggle — zero console errors.
-- [ ] Phase 5 — Wire the unified GitHub Pages deploy
+- [x] **Phase 5 — Wire the unified GitHub Pages deploy.** Fixed a real bug
+      found along the way: the root `package.json`'s `build`/`dev` scripts
+      (`vp run build`/`vp run dev`, from phase 1's scaffold) were
+      self-referential and errored (`Task "build" not found`) — `vp run`
+      needs an explicit filter to target `apps/*` rather than recursing into
+      the workspace root's own script. Fixed to
+      `vp run -F './apps/*' <task>`. Added `scripts/assemble-pages.mjs`
+      (assembles each app's already-built `dist/` into one `dist-pages/`:
+      portfolio at the root, `pvm-rpg`/`rpg-tp` under their own subfolder,
+      matching each app's `base`), a `pnpm pages:build` script
+      (`pnpm build && node scripts/assemble-pages.mjs`), a `CNAME` file
+      (`apps/portfolio/public/CNAME` → `champin.dev`, copied by Vite's normal
+      public-asset handling since portfolio publishes at the root), and
+      `.github/workflows/deploy.yml` (checkout → pnpm/node setup → install →
+      `vp check` → `pnpm pages:build` → `upload-pages-artifact` →
+      `deploy-pages`, triggered on push to `main` + `workflow_dispatch`).
+      Verified locally: `pnpm build` + the assemble script produce the
+      expected `dist-pages/` layout, and serving it with a plain static
+      server (`python3 -m http.server`) confirms all three sites load
+      correctly under their real subpaths (`/`, `/pvm-rpg/`, `/rpg-tp/`) —
+      checked visually via the paired Chrome extension, zero console errors.
+      **Not done in this phase** (deliberately deferred to the actual cutover,
+      not the trunk repo): the 301 redirects from the old
+      `pvm-rpg.champin.dev`/`rpg-tp.champin.dev` subdomains, and
+      tearing down those two repos' own Pages configs/CNAMEs — those touch
+      repos other than this one and only make sense once the new site is
+      live and confirmed stable, i.e. after phase 6's merge.
 - [ ] Phase 6 — Merge to `main`
 
 ## Context

@@ -5,8 +5,9 @@
   "description": "Common trunk for champin.dev and its sub-sites (apps/*), sharing a Vue + Tailwind component layer (packages/ui)",
   "type": "module",
   "scripts": {
-    "dev": "vp run dev",
-    "build": "vp run build",
+    "dev": "vp run -F './apps/*' dev",
+    "build": "vp run -F './apps/*' build",
+    "pages:build": "pnpm build && node scripts/assemble-pages.mjs",
     "check": "vp check",
     "lint": "vp lint",
     "fmt": "vp fmt"
