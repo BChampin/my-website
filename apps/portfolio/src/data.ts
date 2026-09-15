@@ -175,6 +175,40 @@ export const portfolioData = {
         ],
         gallery: ["/shots/aatchi_02.png", "/shots/aatchi_03.png", "/shots/aatchi_01.png"],
       },
+      {
+        title: "PVM-RPG",
+        link: "https://champin.dev/pvm-rpg/",
+        icon: "/logos/pvm-rpg.png",
+        cover: "/shots/pvm-rpg_01.jpg",
+        description: {
+          en: 'A community leaderboard for a Trackmania "Players versus Map" challenge series, run from a live Google Sheet the players themselves fill in. I rebuilt it from Quasar/React into this monorepo\'s plain Vue 3 + Tailwind stack, sharing the design system with the two other sites here, while keeping the live-sheet data source players are used to.',
+          fr: 'Un classement communautaire pour une série de défis Trackmania "Players versus Map", alimenté par un Google Sheet en direct que les joueurs remplissent eux-mêmes. Je l\'ai reconstruit de Quasar/React vers ce stack Vue 3 + Tailwind du monorepo, en partageant le design system avec les deux autres sites ici, tout en gardant la source de données en direct à laquelle les joueurs sont habitués.',
+        },
+        dates: "2024 - Now",
+        context: {
+          en: "Personal project, for a Trackmania community",
+          fr: "Projet personnel, pour une communauté Trackmania",
+        },
+        techs: [{ label: "VueJS", icon: "/logos/vuejs.svg", link: "https://vuejs.org/" }],
+        gallery: ["/shots/pvm-rpg_01.jpg"],
+      },
+      {
+        title: "RPG TeamPlay",
+        link: "https://champin.dev/rpg-tp/",
+        icon: "/logos/rpg-tp.png",
+        cover: "/shots/rpg-tp_01.jpg",
+        description: {
+          en: "The history site for RPG TeamPlay, a recurring Trackmania streamer event: editions, teams, players and times across 14+ events. Rebuilt from Quasar/React into this monorepo's Vue 3 + Tailwind stack, converting its hand-maintained dataset to a typed TS module along the way so schema mistakes get caught at build time instead of breaking the live site.",
+          fr: "Le site historique du RPG TeamPlay, un événement Trackmania récurrent entre streamers : éditions, équipes, joueurs et temps sur plus de 14 éditions. Reconstruit depuis Quasar/React vers le stack Vue 3 + Tailwind de ce monorepo, en convertissant au passage son jeu de données entretenu à la main en module TS typé, pour que les erreurs de structure soient détectées à la compilation plutôt que de casser le site en production.",
+        },
+        dates: "2024 - Now",
+        context: {
+          en: "Personal project, for a Trackmania community",
+          fr: "Projet personnel, pour une communauté Trackmania",
+        },
+        techs: [{ label: "VueJS", icon: "/logos/vuejs.svg", link: "https://vuejs.org/" }],
+        gallery: ["/shots/rpg-tp_01.jpg"],
+      },
     ],
   },
   links: {
