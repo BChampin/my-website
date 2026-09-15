@@ -12,7 +12,12 @@ export type TeamColor =
   | "emerald"
   | "lime"
   | "fuchsia"
-  | "rose";
+  | "rose"
+  | "orange"
+  | "grey"
+  | "white"
+  | "green"
+  | "brown";
 
 export type TpTeam = {
   id: string;

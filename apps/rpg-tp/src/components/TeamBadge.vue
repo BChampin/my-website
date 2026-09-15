@@ -30,6 +30,11 @@ const PALETTE: Record<TeamColor, { bg: string; text: string; ring: string }> = {
   lime: { bg: "#ecfccb", text: "#4d7c0f", ring: "rgb(77 124 15 / 0.1)" },
   fuchsia: { bg: "#fae8ff", text: "#a21caf", ring: "rgb(162 28 175 / 0.1)" },
   rose: { bg: "#ffe4e6", text: "#be123c", ring: "rgb(190 18 60 / 0.1)" },
+  orange: { bg: "#ffedd5", text: "#c2410c", ring: "rgb(194 65 12 / 0.1)" },
+  grey: { bg: "#f3f4f6", text: "#374151", ring: "rgb(55 65 81 / 0.1)" },
+  white: { bg: "#ffffff", text: "#1f2937", ring: "rgb(31 41 55 / 0.15)" },
+  green: { bg: "#dcfce7", text: "#15803d", ring: "rgb(21 128 61 / 0.1)" },
+  brown: { bg: "#f0e0d0", text: "#78350f", ring: "rgb(120 53 15 / 0.1)" },
 };
 
 const colors = computed(() => (props.team ? PALETTE[props.team.color] : PALETTE.rose));
