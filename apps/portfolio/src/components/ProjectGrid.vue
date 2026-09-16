@@ -62,7 +62,7 @@
                 :key="gi"
                 type="button"
                 class="shrink-0 cursor-pointer"
-                @click="lightboxImage = image"
+                @click="openLightbox(image, $event)"
               >
                 <img :src="image" loading="lazy" class="h-40 w-auto rounded object-cover" />
               </button>
@@ -74,20 +74,39 @@
   </ul>
 
   <Teleport to="body">
-    <Transition name="lightbox">
-      <div
-        v-if="lightboxImage"
-        class="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/85 p-6"
-        @click="lightboxImage = null"
+    <div
+      v-if="displayedImage"
+      ref="lightboxEl"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Image preview"
+      tabindex="-1"
+      class="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/85 p-6 transition-opacity duration-200"
+      :class="lightboxImage ? 'opacity-100' : 'pointer-events-none opacity-0'"
+      @click="closeLightbox"
+      @keydown.esc="closeLightbox"
+      @keydown.tab.prevent="closeButtonEl?.focus()"
+    >
+      <button
+        ref="closeButtonEl"
+        type="button"
+        aria-label="Close"
+        class="absolute top-4 right-4 cursor-pointer text-2xl text-white/80 hover:text-white"
+        @click="closeLightbox"
       >
-        <img :src="lightboxImage" class="max-h-[90vh] max-w-[90vw] rounded object-contain" />
-      </div>
-    </Transition>
+        ✕
+      </button>
+      <img
+        :src="displayedImage"
+        class="max-h-[90vh] max-w-[90vw] rounded object-contain transition-transform duration-200"
+        :class="lightboxImage ? '' : 'scale-95'"
+      />
+    </div>
   </Teleport>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { nextTick, ref, watch } from "vue";
 import { t } from "../i18n";
 import type { Project } from "../data";
 import { useExpandedProject } from "../composables/useExpandedProject";
@@ -97,23 +116,24 @@ defineProps<{ projects: Project[] }>();
 
 const { expandedTitle, toggle } = useExpandedProject();
 const lightboxImage = ref<string | null>(null);
-</script>
+const displayedImage = ref<string | null>(null);
+const lightboxEl = ref<HTMLElement>();
+const closeButtonEl = ref<HTMLButtonElement>();
+let lastTrigger: HTMLElement | null = null;
 
-<style scoped>
-.lightbox-enter-active,
-.lightbox-leave-active {
-  transition: opacity 0.2s ease;
+watch(lightboxImage, (value) => {
+  if (value) displayedImage.value = value;
+});
+
+async function openLightbox(image: string, event: MouseEvent) {
+  lastTrigger = event.currentTarget as HTMLElement;
+  lightboxImage.value = image;
+  await nextTick();
+  lightboxEl.value?.focus();
 }
-.lightbox-enter-active img,
-.lightbox-leave-active img {
-  transition: transform 0.2s ease;
+
+function closeLightbox() {
+  lightboxImage.value = null;
+  lastTrigger?.focus();
 }
-.lightbox-enter-from,
-.lightbox-leave-to {
-  opacity: 0;
-}
-.lightbox-enter-from img,
-.lightbox-leave-to img {
-  transform: scale(0.96);
-}
-</style>
+</script>

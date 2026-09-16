@@ -1,5 +1,5 @@
 <template>
-  <section class="border-b border-theme-6/40 py-12 last:border-b-0">
+  <section v-reveal class="border-b border-theme-6/40 py-12 last:border-b-0">
     <h2 class="mb-4 text-xs font-semibold tracking-widest text-theme-4 uppercase">
       {{ t("contact.title") }}
     </h2>

@@ -1,6 +1,7 @@
 <template>
+  <a href="#main-content" class="skip-link">{{ t("skipLink") }}</a>
   <NavBar />
-  <main class="mx-auto max-w-3xl px-4 sm:px-6">
+  <main id="main-content" class="mx-auto max-w-3xl px-4 sm:px-6">
     <MainBlock id="hero" />
     <AboutBlock id="experience" />
     <ProjectsBlock id="projects" />
@@ -18,4 +19,5 @@ import SkillsBlock from "./components/SkillsBlock.vue";
 import ProjectsBlock from "./components/ProjectsBlock.vue";
 import ExperimentsBlock from "./components/ExperimentsBlock.vue";
 import ContactBlock from "./components/ContactBlock.vue";
+import { t } from "./i18n";
 </script>

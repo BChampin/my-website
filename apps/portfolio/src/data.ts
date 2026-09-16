@@ -1,4 +1,8 @@
 export const portfolioData = {
+  skipLink: {
+    en: "Skip to content",
+    fr: "Aller au contenu",
+  },
   main: {
     title: {
       en: "Hi, I'm",
@@ -11,6 +15,10 @@ export const portfolioData = {
     caption: {
       en: "I develop beautifully simple web interfaces, and I think that's pretty cool !",
       fr: "Je développe des interfaces web épurées et simples, et je trouve ça cool !",
+    },
+    available: {
+      en: "Available for freelance work",
+      fr: "Disponible pour du freelance",
     },
   },
   contact: {

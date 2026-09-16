@@ -1,5 +1,5 @@
 <template>
-  <section class="border-b border-theme-6/40 py-12 last:border-b-0">
+  <section v-reveal class="border-b border-theme-6/40 py-12 last:border-b-0">
     <div class="mb-6 flex flex-wrap items-center justify-between gap-2">
       <h2 class="text-xs font-semibold tracking-widest text-theme-4 uppercase">
         {{ t("about.title") }}
