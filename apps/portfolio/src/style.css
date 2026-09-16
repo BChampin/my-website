@@ -13,10 +13,45 @@
     url("/fonts/Ubuntu-Regular.ttf") format("truetype");
 }
 
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--theme-5) transparent;
+}
+html::-webkit-scrollbar {
+  width: 8px;
+}
+html::-webkit-scrollbar-thumb {
+  background-color: var(--theme-5);
+  border-radius: 9999px;
+}
+html::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thin-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--theme-5) transparent;
+}
+.thin-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--theme-5);
+  border-radius: 9999px;
+}
+.thin-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 body {
   font-family: "Ubuntu", sans-serif;
   background-color: var(--theme-1);
   color: var(--theme-3);
+}
+
+section[id] {
+  scroll-margin-top: 5rem;
 }
 
 .link {

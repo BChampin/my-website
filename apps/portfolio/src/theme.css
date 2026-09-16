@@ -1,22 +1,22 @@
 /* Portfolio palette — see packages/ui/README.md for what each slot means. */
 :root {
-  --theme-1: #ffffff;
-  --theme-2: #ffffff;
-  --theme-3: #1a1a1a;
-  --theme-4: #222222;
-  --theme-5: #d1d1d1;
+  --theme-1: #f4f4f5;
+  --theme-2: #f4f4f5;
+  --theme-3: #18181b;
+  --theme-4: #71717a;
+  --theme-5: #e4e4e7;
   --theme-6: #00a9ff;
   --theme-7: #ffffff;
-  --theme-8: #f2f5f5;
+  --theme-8: #ececed;
 }
 
 [data-theme="dark"] {
-  --theme-1: #121212;
-  --theme-2: #121212;
-  --theme-3: #f2f5f5;
-  --theme-4: #f2f5f5;
-  --theme-5: #333333;
+  --theme-1: #151515;
+  --theme-2: #151515;
+  --theme-3: #f4f4f5;
+  --theme-4: #a1a1aa;
+  --theme-5: #2e2e30;
   --theme-6: #00a9ff;
   --theme-7: #ffffff;
-  --theme-8: #1e1e1e;
+  --theme-8: #202022;
 }
